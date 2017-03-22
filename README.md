@@ -134,6 +134,14 @@ Compose two optics.
 
 - **0.0.0** &mdash; *2017-03-22* &mdash; Initial preview
 
+## Related work
+
+### JavaScript
+
+- [partial.lenses](https://github.com/calmm-js/partial.lenses)
+- [ramda-lens](https://github.com/ramda/ramda-lens)
+- [flunc-optics](https://github.com/flunc/optics)
+
 The MIT License (MIT)
 
 Copyright (c) 2017 Oleg Grenrus

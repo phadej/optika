@@ -41,13 +41,10 @@
     "typescript": "^2.2.1"
   },
   "keywords": [
-    "testing",
-    "unit testing",
-    "TDD",
-    "property-based testing",
-    "quickcheck",
-    "quick check",
-    "jscheck"
+    "lens",
+    "optic",
+    "immutable",
+    "profunctor"
   ],
   "dependencies": {}
 }
