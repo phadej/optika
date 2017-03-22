@@ -17,7 +17,7 @@ path p;
 p = (0,0)--(0,1in)--(1in,1in)--(1in,0)--cycle;
 fill p withcolor yellowColor;
 
-z0=(5in,2in);
+z0=(2.5in,1in);
 z1=(-5in,2in);
 z9=(0.5in,10in);
 
