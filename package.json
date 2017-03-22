@@ -1,6 +1,6 @@
 {
   "name": "optika",
-  "description": "Property-based testing for JavaScript.",
+  "description": "Optics: modular data access for JavaScript",
   "version": "0.0.0",
   "homepage": "https://github.com/phadej/optika",
   "author": {
