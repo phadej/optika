@@ -71,3 +71,12 @@ README.md :
 
 test-readme : literate
 	git diff --exit-code || (echo "README.md is generated file, run 'make README.md'" && false)
+
+MPOST=mpost
+SVGPARAMS=-s outputformat='"svg"' -s outputtemplate='"%j.svg"'
+
+optika.svg : optika.mp
+	$(MPOST) $(SVGPARAMS) $<
+
+optika-300.png : optika.svg
+	inkscape --export-png=optika-300.png --export-dpi=300 --export-background-opacity=0 --without-gui optika.svg
