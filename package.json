@@ -1,0 +1,53 @@
+{
+  "name": "optika",
+  "description": "Property-based testing for JavaScript.",
+  "version": "0.8.1",
+  "homepage": "https://github.com/phadej/optika",
+  "author": {
+    "name": "Oleg Grenrus",
+    "email": "oleg.grenrus@iki.fi",
+    "url": "http://oleg.fi"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/optika/optika.git"
+  },
+  "bugs": {
+    "url": "https://github.com/optika/optika/issues"
+  },
+  "license": "MIT",
+  "main": "lib/optika.js",
+  "types": "lib/optika.d.ts",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^2.2.40",
+    "browserify": "^14.0.0",
+    "david": "^11.0.0",
+    "eslint": "^3.3.1",
+    "esprima": "^3.0.0",
+    "immutable": "^3.8.1",
+    "istanbul": "^0.4.1",
+    "jscs": "^3.0.7",
+    "jshint": "^2.7.0",
+    "ljs": "~0.3.0",
+    "mocha": "^3.0.2",
+    "npm-freeze": "^0.1.3",
+    "ts-node": "^3.0.0",
+    "typescript": "^2.2.1"
+  },
+  "keywords": [
+    "testing",
+    "unit testing",
+    "TDD",
+    "property-based testing",
+    "quickcheck",
+    "quick check",
+    "jscheck"
+  ],
+  "dependencies": {}
+}

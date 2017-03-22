@@ -1,0 +1,17 @@
+{
+  "shadow": "outer",
+  "quotmark": "double",
+  "curly": true,
+  "eqeqeq": true,
+  "immed": true,
+  "latedef": "nofunc",
+  "newcap": true,
+  "noarg": true,
+  "sub": true,
+  "undef": true,
+  "unused": "vars",
+  "boss": true,
+  "eqnull": true,
+  "trailing": true,
+  "node": true
+}
