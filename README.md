@@ -91,6 +91,15 @@ o.key("foo").to(function (x) { return x[0]; }).set(value, 42);
 
 - `over(this: Traversal<S,T,A,B>, value: S, f: A => B): T`
 
+- `review(this: Prism<S,T,A,B>, value: B): T`
+- `review(this: Iso<S,T,A,B>, value: B): T`
+
+Construct value thru `Prism` or `Iso`.
+
+- `affineView(this: Affine<S,T,A,B>, def: A): A
+
+For operation working with `Fold`, see `firstOf`.
+
 - `arrayOf(this: Fold<S,T,A,B>, value: S): Array<A>`
 
 ### Constructors
@@ -114,6 +123,15 @@ o.key("foo").to(function (x) { return x[0]; }).set(value, 42);
   Works with everyting supporting `.get` and `.set`, e.g.
   [Immutable](http://facebook.github.io/immutable-js/).
 
+- `filtered(pred: A => boolean): Prism<A,A,A',A'>`
+
+*Note*: The predicate is checked when the value is injected (via `Traversal`)
+or constructed via `Prism`.
+
+- `safeFiltered(pred: A => boolean): Prism<A,A,A',A'>`
+
+Like `filtered` but predicate is checked on construction.
+
 ### Internals
 
 Functions which you probably never need to use directly.
@@ -133,6 +151,13 @@ Compose two optics.
 ## Release History
 
 - **0.0.0** &mdash; *2017-03-22* &mdash; Initial preview
+
+## Implementation details
+
+- pair is represented as two-element array: `Pair<A,B> = [A,B]`.
+- `Either` is represtented by `[boolean, A | B]`, where
+  `false` and `true` reprsent whether the value is `Left` or `Right` respectively.
+- `Maybe` is encoded as the value + some unique value nothing can equal to (think: `Symbol`).
 
 ## Related work
 

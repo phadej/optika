@@ -45,7 +45,8 @@ mocha-ts :
 istanbul :
 	$(ISTANBUL) cover -- $(IMOCHA) --reporter dot --timeout 10000 test
 	test -f coverage/coverage.json
-	$(ISTANBUL) check-coverage --statements 100 --branches -4 --functions 100 coverage/coverage.json
+	@echo coverage report: file://`pwd`/coverage/lcov-report/index.html
+	$(ISTANBUL) check-coverage --statements 100 --branches -2 --functions -1 coverage/coverage.json
 
 dist : test literate $(DIST)
 	git clean -fdx -e node_modules
