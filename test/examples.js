@@ -16,6 +16,9 @@ var value = {
 
 var imValue = im.fromJS(value);
 
+function nonEmpty(x) { return x !== ""; }
+function constTrue() { return true; }
+
 describe("examples", function () {
   it("arrayOf", function () {
     var actual = o.key("foo").traversed().key("bar").arrayOf(value);
@@ -80,4 +83,50 @@ describe("examples", function () {
       o.key("foo").to(function (x) { return x[0]; }).set(value, 42);
     });
   });
+
+  describe("affineView", function () {
+    it("existing value", function () {
+      var actual = o.key("quu").affineView(value, "none");
+      var expected = "foobar";
+      assert.strictEqual(actual, expected);
+    });
+
+    it("non-existing value", function () {
+      var actual = o.key("quu").filtered(nonEmpty).affineView({ quu: "" }, "none");
+      var actual2 = o.key("quu").safeFiltered(nonEmpty).affineView({ quu: "" }, "none");
+      var expected = "none";
+      assert.strictEqual(actual, expected);
+      assert.strictEqual(actual2, expected);
+    });
+
+    it("nested non-existing", function () {
+      var actual = o.key("quu").filtered(constTrue).filtered(nonEmpty).affineView({ quu: "" }, "none");
+      var expected = "none";
+      assert.strictEqual(actual, expected);
+    });
+  });
+
+  describe("review", function () {
+    it("works thru prism", function () {
+      var actual = o.filtered(nonEmpty).review("foobar");
+      var actual2 = o.safeFiltered(nonEmpty).review("foobar");
+      var expected = "foobar";
+      assert.strictEqual(actual, expected);
+      assert.strictEqual(actual2, expected);
+    });
+
+    it("works thru violating filtered", function () {
+      var actual = o.filtered(nonEmpty).review("");
+      var expected = "";
+      assert.strictEqual(actual, expected);
+    });
+
+    it("throws thru violation safeFiltered", function () {
+      assert.throws(function () {
+        o.safeFiltered(nonEmpty).review("");
+      });
+    });
+  });
+
+  // todo: firstOf
 });
