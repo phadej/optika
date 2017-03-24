@@ -1,7 +1,7 @@
 {
   "name": "optika",
   "description": "Optics: modular data access for JavaScript",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "homepage": "https://github.com/phadej/optika",
   "author": {
     "name": "Oleg Grenrus",
