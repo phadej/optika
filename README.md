@@ -120,10 +120,19 @@ For operation working with `Fold`, see `firstOf`.
 
   Works for *plain-old-javascriot-objects*, i.e. POJOs :)
 
-- `imkey(K: keyof (S & T)): Lens<S,T,S[K],T[K]>`
+- `idx(i: number)): Lens<Array<A>,Array<A>,A,A>`
+
+- `imkey(K: keyof (S & T)): Lens<Record<S>,Record<T>,S[K],T[K]>`
 
   Works with everyting supporting `.get` and `.set`, e.g.
   [Immutable](http://facebook.github.io/immutable-js/).
+
+- `imidx(i: number)): Lens<List<A>,List<A>,A,A>`
+
+  Works with everyting supporting `.get` and `.set`, e.g.
+  [Immutable](http://facebook.github.io/immutable-js/).
+
+  *Note:* doesn't perform bounds check.
 
 - `filtered(pred: A => boolean): Prism<A,A,A',A'>`
 

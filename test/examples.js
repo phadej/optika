@@ -152,6 +152,26 @@ describe("examples", function () {
     });
   });
 
+  describe("custom", function () {
+    it("lens get", function () {
+      var id = function (x) { return x; };
+      var l = o.lens(id, id);
+
+      var actual = l.get(42);
+      var expected = 42;
+      assert.strictEqual(actual, expected);
+    });
+
+    it("lens set", function () {
+      var id = function (x) { return x; };
+      var l = o.lens(id, function (s, b) { return b; });
+
+      var actual = l.set(42, 7);
+      var expected = 7;
+      assert.strictEqual(actual, expected);
+    });
+  });
+
   describe("getter", function () {
     it("simple", function () {
       var actual = o.key("foo").to(function (xs) { return xs[0]; }).get(value);
@@ -219,6 +239,15 @@ describe("examples", function () {
       assert.throws(function () {
         o.safeFiltered(nonEmpty).review("");
       });
+    });
+  });
+
+  describe("regressions", function () {
+    it("axay", function () {
+      var axay = [{ x: [{ y: 1 }] }];
+      var actual = o.idx(0).key("x").idx(0).key("y").get(axay);
+      var expected = 1;
+      assert.strictEqual(actual, expected);
     });
   });
 
