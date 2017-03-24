@@ -102,6 +102,8 @@ For operation working with `Fold`, see `firstOf`.
 
 - `arrayOf(this: Fold<S,T,A,B>, value: S): Array<A>`
 
+- `sumOf(this: Fold<S,T,number,B>, value: S): number`
+
 ### Constructors
 
 - `lens(getter: S => A, setter: (S, B) => T): Lens<S,T,A,B>`
