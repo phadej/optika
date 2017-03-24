@@ -114,22 +114,62 @@ describe("examples", function () {
     assert.deepStrictEqual(actual, expected);
   });
 
-  it("set", function () {
-    var actual = o.key("foo").traversed().key("bar").set(value, 42);
-    var expected = {
-      foo: [
-        { bar: 42, baz: 3 },
-        { bar: 42, baz: 5 },
-      ],
-      quu: "foobar",
-    };
-    assert.deepStrictEqual(actual, expected);
+  describe("set", function () {
+    it("simple", function () {
+      var actual = o.key("foo").traversed().key("bar").set(value, 42);
+      var expected = {
+        foo: [
+          { bar: 42, baz: 3 },
+          { bar: 42, baz: 5 },
+        ],
+        quu: "foobar",
+      };
+      assert.deepStrictEqual(actual, expected);
+    });
+
+    it("idx", function () {
+      var actual = o.key("foo").idx(1).key("bar").set(value, 42);
+      var expected = {
+        foo: [
+          { bar: 2, baz: 3 },
+          { bar: 42, baz: 5 },
+        ],
+        quu: "foobar",
+      };
+      assert.deepStrictEqual(actual, expected);
+    });
+
+    it("imidx", function () {
+      var actual = o.imkey("foo").imidx(1).imkey("bar").set(imValue, 42).toJS();
+      var expected = {
+        foo: [
+          { bar: 2, baz: 3 },
+          { bar: 42, baz: 5 },
+        ],
+        quu: "foobar",
+      };
+      assert.deepStrictEqual(actual, expected);
+    });
   });
 
-  it("getter", function () {
-    var actual = o.key("foo").to(function (xs) { return xs[0]; }).get(value);
-    var expected = value.foo[0];
-    assert.strictEqual(actual, expected);
+  describe("getter", function () {
+    it("simple", function () {
+      var actual = o.key("foo").to(function (xs) { return xs[0]; }).get(value);
+      var expected = value.foo[0];
+      assert.strictEqual(actual, expected);
+    });
+
+    it("idx", function () {
+      var actual = o.key("foo").idx(1).key("bar").get(value);
+      var expected = 4;
+      assert.strictEqual(actual, expected);
+    });
+
+    it("imidx", function () {
+      var actual = o.imkey("foo").imidx(1).imkey("bar").get(imValue);
+      var expected = 4;
+      assert.strictEqual(actual, expected);
+    });
   });
 
   it("set with getter throws", function () {
