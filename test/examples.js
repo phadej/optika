@@ -18,6 +18,8 @@ var imValue = im.fromJS(value);
 
 function nonEmpty(x) { return x !== ""; }
 function constTrue() { return true; }
+function odd(x) { return x % 2 === 1; }
+function inc2(x) { return x + 2; }
 
 describe("examples", function () {
   it("arrayOf", function () {
@@ -29,6 +31,13 @@ describe("examples", function () {
   it("arrayOf: immutable", function () {
     var actual = o.imkey("foo").traversed().imkey("bar").arrayOf(imValue);
     var expected = [2, 4];
+    assert.deepStrictEqual(actual, expected);
+  });
+
+  it("arrayOf: with filtered", function () {
+    var xss = [[1, 2], [3, 4, 5], [6, 7]];
+    var actual = o.traversed().traversed().filtered(odd).arrayOf(xss);
+    var expected = [1, 3, 5, 7];
     assert.deepStrictEqual(actual, expected);
   });
 
@@ -57,6 +66,13 @@ describe("examples", function () {
       ],
       quu: "foobar",
     };
+    assert.deepStrictEqual(actual, expected);
+  });
+
+  it("over: with filtered", function () {
+    var xss = [[1, 2], [3, 4, 5], [6, 7]];
+    var actual = o.traversed().traversed().filtered(odd).over(xss, inc2);
+    var expected = [[3, 2], [5, 4, 7], [6, 9]];
     assert.deepStrictEqual(actual, expected);
   });
 

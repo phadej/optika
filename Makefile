@@ -36,7 +36,7 @@ jscs :
 	$(JSCS) $(SRC)
 
 mocha :
-	$(MOCHA) --reporter spec test
+	$(MOCHA) --reporter spec $(MOCHATEST:%=-g %) test
 
 mocha-ts :
 	@echo TODO
