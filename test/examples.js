@@ -22,23 +22,33 @@ function odd(x) { return x % 2 === 1; }
 function inc2(x) { return x + 2; }
 
 describe("examples", function () {
-  it("arrayOf", function () {
-    var actual = o.key("foo").traversed().key("bar").arrayOf(value);
-    var expected = [2, 4];
-    assert.deepStrictEqual(actual, expected);
-  });
+  describe("arrayOf", function () {
+    it("readme", function () {
+      var actual = o.key("foo").traversed().key("bar").arrayOf(value);
+      var expected = [2, 4];
+      assert.deepStrictEqual(actual, expected);
+    });
 
-  it("arrayOf: immutable", function () {
-    var actual = o.imkey("foo").traversed().imkey("bar").arrayOf(imValue);
-    var expected = [2, 4];
-    assert.deepStrictEqual(actual, expected);
-  });
+    it("array", function () {
+      var xs = [1, 2, 3, 4, 5];
+      var actual = o.traversed().arrayOf(xs);
+      var expected = xs;
+      // not not deep equal!
+      assert.strictEqual(actual, expected);
+    });
 
-  it("arrayOf: with filtered", function () {
-    var xss = [[1, 2], [3, 4, 5], [6, 7]];
-    var actual = o.traversed().traversed().filtered(odd).arrayOf(xss);
-    var expected = [1, 3, 5, 7];
-    assert.deepStrictEqual(actual, expected);
+    it("immutable", function () {
+      var actual = o.imkey("foo").traversed().imkey("bar").arrayOf(imValue);
+      var expected = [2, 4];
+      assert.deepStrictEqual(actual, expected);
+    });
+
+    it("with filtered", function () {
+      var xss = [[1, 2], [3, 4, 5], [6, 7]];
+      var actual = o.traversed().traversed().filtered(odd).arrayOf(xss);
+      var expected = [1, 3, 5, 7];
+      assert.deepStrictEqual(actual, expected);
+    });
   });
 
   it("over", function () {
