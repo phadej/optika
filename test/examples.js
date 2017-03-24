@@ -114,22 +114,82 @@ describe("examples", function () {
     assert.deepStrictEqual(actual, expected);
   });
 
-  it("set", function () {
-    var actual = o.key("foo").traversed().key("bar").set(value, 42);
-    var expected = {
-      foo: [
-        { bar: 42, baz: 3 },
-        { bar: 42, baz: 5 },
-      ],
-      quu: "foobar",
-    };
-    assert.deepStrictEqual(actual, expected);
+  describe("set", function () {
+    it("simple", function () {
+      var actual = o.key("foo").traversed().key("bar").set(value, 42);
+      var expected = {
+        foo: [
+          { bar: 42, baz: 3 },
+          { bar: 42, baz: 5 },
+        ],
+        quu: "foobar",
+      };
+      assert.deepStrictEqual(actual, expected);
+    });
+
+    it("idx", function () {
+      var actual = o.key("foo").idx(1).key("bar").set(value, 42);
+      var expected = {
+        foo: [
+          { bar: 2, baz: 3 },
+          { bar: 42, baz: 5 },
+        ],
+        quu: "foobar",
+      };
+      assert.deepStrictEqual(actual, expected);
+    });
+
+    it("imidx", function () {
+      var actual = o.imkey("foo").imidx(1).imkey("bar").set(imValue, 42).toJS();
+      var expected = {
+        foo: [
+          { bar: 2, baz: 3 },
+          { bar: 42, baz: 5 },
+        ],
+        quu: "foobar",
+      };
+      assert.deepStrictEqual(actual, expected);
+    });
   });
 
-  it("getter", function () {
-    var actual = o.key("foo").to(function (xs) { return xs[0]; }).get(value);
-    var expected = value.foo[0];
-    assert.strictEqual(actual, expected);
+  describe("custom", function () {
+    it("lens get", function () {
+      var id = function (x) { return x; };
+      var l = o.lens(id, id);
+
+      var actual = l.get(42);
+      var expected = 42;
+      assert.strictEqual(actual, expected);
+    });
+
+    it("lens set", function () {
+      var id = function (x) { return x; };
+      var l = o.lens(id, function (s, b) { return b; });
+
+      var actual = l.set(42, 7);
+      var expected = 7;
+      assert.strictEqual(actual, expected);
+    });
+  });
+
+  describe("getter", function () {
+    it("simple", function () {
+      var actual = o.key("foo").to(function (xs) { return xs[0]; }).get(value);
+      var expected = value.foo[0];
+      assert.strictEqual(actual, expected);
+    });
+
+    it("idx", function () {
+      var actual = o.key("foo").idx(1).key("bar").get(value);
+      var expected = 4;
+      assert.strictEqual(actual, expected);
+    });
+
+    it("imidx", function () {
+      var actual = o.imkey("foo").imidx(1).imkey("bar").get(imValue);
+      var expected = 4;
+      assert.strictEqual(actual, expected);
+    });
   });
 
   it("set with getter throws", function () {
@@ -179,6 +239,15 @@ describe("examples", function () {
       assert.throws(function () {
         o.safeFiltered(nonEmpty).review("");
       });
+    });
+  });
+
+  describe("regressions", function () {
+    it("axay", function () {
+      var axay = [{ x: [{ y: 1 }] }];
+      var actual = o.idx(0).key("x").idx(0).key("y").get(axay);
+      var expected = 1;
+      assert.strictEqual(actual, expected);
     });
   });
 
