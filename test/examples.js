@@ -51,6 +51,34 @@ describe("examples", function () {
     });
   });
 
+  describe("sumOf", function () {
+    it("readme", function () {
+      var actual = o.key("foo").traversed().key("bar").sumOf(value);
+      var expected = 6;
+      assert.strictEqual(actual, expected);
+    });
+
+    it("array", function () {
+      var xs = [1, 2, 3, 4, 5];
+      var actual = o.traversed().sumOf(xs);
+      var expected = 15;
+      assert.strictEqual(actual, expected);
+    });
+
+    it("immutable", function () {
+      var actual = o.imkey("foo").traversed().imkey("bar").sumOf(imValue);
+      var expected = 6;
+      assert.strictEqual(actual, expected);
+    });
+
+    it("with filtered", function () {
+      var xss = [[1, 2], [3, 4, 5], [6, 7]];
+      var actual = o.traversed().traversed().filtered(odd).sumOf(xss);
+      var expected = 16;
+      assert.strictEqual(actual, expected);
+    });
+  });
+
   it("over", function () {
     var actual = o.key("foo").traversed().key("bar").over(value, function (x) {
       return x + 7;
