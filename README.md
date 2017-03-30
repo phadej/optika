@@ -94,11 +94,16 @@ o.key("foo").to(function (x) { return x[0]; }).set(value, 42);
 - `review(this: Prism<S,T,A,B>, value: B): T`
 - `review(this: Iso<S,T,A,B>, value: B): T`
 
-Construct value thru `Prism` or `Iso`.
+  Construct value thru `Prism` or `Iso`.
 
 - `affineView(this: Affine<S,T,A,B>, def: A): A
 
-For operation working with `Fold`, see `firstOf`.
+  For operation working with `Fold`, see `firstOf`.
+
+- `reduceOf(this: Fold<S,T,A,B>, value: S, init: I, combine: (I, A) => I): I`
+
+  Fold starting with initial value `init`, and combining results with `combine`,
+  in the `this` Fold's order.
 
 - `arrayOf(this: Fold<S,T,A,B>, value: S): Array<A>`
 
@@ -110,7 +115,7 @@ For operation working with `Fold`, see `firstOf`.
 
 - `traversed(): Traversal<F<A>,F<B>,A,B>`
 
-   Creates traversal for everything with `.map` and `.forEach`.
+  Creates traversal for everything with `.map` and `.forEach`.
 
 - `to(f: S => A): Getter<S,A>`
 
@@ -161,6 +166,7 @@ Compose two optics.
 
 ## Release History
 
+- **0.0.2** &mdash; *2017-04-01* &mdash; Neglect for speedups
 - **0.0.1** &mdash; *2017-03-24* &mdash; More features
 - **0.0.0** &mdash; *2017-03-22* &mdash; Initial preview
 
@@ -170,6 +176,8 @@ Compose two optics.
 - `Either` is represtented by `[boolean, A | B]`, where
   `false` and `true` reprsent whether the value is `Left` or `Right` respectively.
 - `Maybe` is encoded as the value + some unique value nothing can equal to (think: `Symbol`).
+- See [Compiling lenses](http://oleg.fi/gists/posts/2017-03-31-compiling-lenses.html)
+  for ideas behind `Neglect`.
 
 ## Related work
 

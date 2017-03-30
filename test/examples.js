@@ -33,8 +33,7 @@ describe("examples", function () {
       var xs = [1, 2, 3, 4, 5];
       var actual = o.traversed().arrayOf(xs);
       var expected = xs;
-      // not not deep equal!
-      assert.strictEqual(actual, expected);
+      assert.deepStrictEqual(actual, expected);
     });
 
     it("immutable", function () {
@@ -46,6 +45,34 @@ describe("examples", function () {
     it("with filtered", function () {
       var xss = [[1, 2], [3, 4, 5], [6, 7]];
       var actual = o.traversed().traversed().filtered(odd).arrayOf(xss);
+      var expected = [1, 3, 5, 7];
+      assert.deepStrictEqual(actual, expected);
+    });
+  });
+
+  describe("forgetArrayOf", function () {
+    it("readme", function () {
+      var actual = o.key("foo").traversed().key("bar").forgetArrayOf(value);
+      var expected = [2, 4];
+      assert.deepStrictEqual(actual, expected);
+    });
+
+    it("array", function () {
+      var xs = [1, 2, 3, 4, 5];
+      var actual = o.traversed().forgetArrayOf(xs);
+      var expected = xs;
+      assert.deepStrictEqual(actual, expected);
+    });
+
+    it("immutable", function () {
+      var actual = o.imkey("foo").traversed().imkey("bar").forgetArrayOf(imValue);
+      var expected = [2, 4];
+      assert.deepStrictEqual(actual, expected);
+    });
+
+    it("with filtered", function () {
+      var xss = [[1, 2], [3, 4, 5], [6, 7]];
+      var actual = o.traversed().traversed().filtered(odd).forgetArrayOf(xss);
       var expected = [1, 3, 5, 7];
       assert.deepStrictEqual(actual, expected);
     });
@@ -75,6 +102,48 @@ describe("examples", function () {
       var xss = [[1, 2], [3, 4, 5], [6, 7]];
       var actual = o.traversed().traversed().filtered(odd).sumOf(xss);
       var expected = 16;
+      assert.strictEqual(actual, expected);
+    });
+
+    it("immutable with traversed at the end", function () {
+      var xss = im.fromJS([[1, 2], [3, 4, 5], [6, 7]]);
+      var actual = o.traversed().traversed().sumOf(xss);
+      var expected = 28;
+      assert.strictEqual(actual, expected);
+    });
+  });
+
+  describe("forgetSumOf", function () {
+    it("readme", function () {
+      var actual = o.key("foo").traversed().key("bar").forgetSumOf(value);
+      var expected = 6;
+      assert.strictEqual(actual, expected);
+    });
+
+    it("array", function () {
+      var xs = [1, 2, 3, 4, 5];
+      var actual = o.traversed().forgetSumOf(xs);
+      var expected = 15;
+      assert.strictEqual(actual, expected);
+    });
+
+    it("immutable", function () {
+      var actual = o.imkey("foo").traversed().imkey("bar").forgetSumOf(imValue);
+      var expected = 6;
+      assert.strictEqual(actual, expected);
+    });
+
+    it("with filtered", function () {
+      var xss = [[1, 2], [3, 4, 5], [6, 7]];
+      var actual = o.traversed().traversed().filtered(odd).forgetSumOf(xss);
+      var expected = 16;
+      assert.strictEqual(actual, expected);
+    });
+
+    it("immutable with traversed at the end", function () {
+      var xss = im.fromJS([[1, 2], [3, 4, 5], [6, 7]]);
+      var actual = o.traversed().traversed().forgetSumOf(xss);
+      var expected = 28;
       assert.strictEqual(actual, expected);
     });
   });
@@ -248,6 +317,16 @@ describe("examples", function () {
       var actual = o.idx(0).key("x").idx(0).key("y").get(axay);
       var expected = 1;
       assert.strictEqual(actual, expected);
+    });
+
+    it("arrayOf doesn't mutate", function () {
+      var ax = [1, 1, 1];
+      var bx = im.fromJS([2, 2]);
+
+      var actual = o.traversed().traversed().arrayOf([ax, [], bx]);
+      var expected = [1, 1, 1, 2, 2];
+      assert.deepStrictEqual(actual, expected);
+      assert.deepStrictEqual(ax, [1, 1, 1]);
     });
   });
 
