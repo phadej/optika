@@ -69,7 +69,7 @@ over
 And with this library you can write similar code in JavaScript:
 
 ```javascript
-o.imkey("months".traversed().imkey("days").traversed().over(data, day =>
+o.imkey("months").traversed().imkey("days").traversed().over(data, day =>
   injectAuxData(day, auxData)
 );
 ```
