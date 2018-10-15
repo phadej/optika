@@ -96,7 +96,7 @@ o.key("foo").to(function (x) { return x[0]; }).set(value, 42);
 
   Construct value thru `Prism` or `Iso`.
 
-- `affineView(this: Affine<S,T,A,B>, def: A): A
+- `affineView(this: Affine<S,T,A,B>, def: A): A`
 
   For operation working with `Fold`, see `firstOf`.
 
@@ -186,7 +186,6 @@ Compose two optics.
 - [partial.lenses](https://github.com/calmm-js/partial.lenses)
 - [ramda-lens](https://github.com/ramda/ramda-lens)
 - [flunc-optics](https://github.com/flunc/optics)
-- [monocle-ts](https://github.com/gcanti/monocle-ts)
 
 The MIT License (MIT)
 
